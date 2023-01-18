@@ -79,7 +79,9 @@ function generatePassword(lower, upper, number, symbol, length) {
     if (userSelections <= 0) return "Please Make Selections";
 
     // Loop length times and call 
-    if (length < minLength || length > maxLength) return;
+    if (length < minLength) length = 4;
+    if (length < maxLength) length = 20;
+
     for (let i = 0; i < length; i++) {
         let funcSelect = Math.floor(Math.random() * userSelections);
         let char = Object.keys(userInputArr[funcSelect])[0];
