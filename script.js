@@ -8,6 +8,9 @@ const symbolsEl = document.getElementById('symbols');
 const generateEl = document.getElementById('generate');
 const clipboard = document.getElementById('clipboard');
 
+const minLength = 4;
+const maxLength = 20;
+
 // Object with our char generating functions
 const randomFunc = {
     lower: getRandomLower,
@@ -69,18 +72,19 @@ function getRandomSymbol() {
 function generatePassword(lower, upper, number, symbol, length) {
     let generatedPassword = '';
     // Remove unselected options
-    const userInputArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
+    const userInputArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
     let userSelections = userInputArr.length;
-    
+
     // Check for selection error
     if (userSelections <= 0) return "Please Make Selections";
 
     // Loop length times and call 
+    if (length < minLength || length > maxLength) return;
     for (let i = 0; i < length; i++) {
         let funcSelect = Math.floor(Math.random() * userSelections);
         let char = Object.keys(userInputArr[funcSelect])[0];
-        
-        generatedPassword +=  randomFunc[char]();
+
+        generatedPassword += randomFunc[char]();
     }
     return generatedPassword;
 }
